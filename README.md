@@ -59,7 +59,7 @@
 
 Before building or running this project, one will need docker installed
 
-1) Go (here)[https://docs.docker.com/engine/install/] and follow instructions on how to set up docker
+1) Go [here](https://docs.docker.com/engine/install/) and follow instructions on how to set up docker
 
 ### Installation
 
