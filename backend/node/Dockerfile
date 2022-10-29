@@ -11,5 +11,7 @@ copy ./src/package.json .
 run yarn install
 copy ./src .
 
+expose 3000
+
 cmd ["node", "index.js"]
 
