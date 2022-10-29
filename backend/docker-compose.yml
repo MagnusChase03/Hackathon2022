@@ -4,6 +4,7 @@ services:
     build: ./node 
     environment:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
+      MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
     ports:
       - "3000:3000"
     depends_on:
@@ -11,9 +12,10 @@ services:
   mongodb:
     build: ./mongodb
     volumes:
-      - mongodb:/data/db
+      - type: volume
+        source: mongodb
+        target: /data/db
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD} 
 volumes:
   mongodb:
