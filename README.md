@@ -63,12 +63,13 @@ Before building or running this project, one will need docker installed
 
 ### Installation
 
-Clone the repo and build all containers from the docker compose file. The mongodb container requires a password to create a root user, so create an `.env` file in the same location as `docker-compose.yml` which contains `MONGO_INITDB_ROOT_PASSWORD=yourpasswordhere`
+Clone the repo and build all containers from the docker compose file. The mongodb container requires a password to create a root user, so create an `.env` file in the same location as `docker-compose.yml` which contains `MONGO_INITDB_ROOT_PASSWORD=yourpasswordhere`. One will also have to specify which database to use in the `.env` file using `MONGO_INITDB_DATABASE=yourdatabasehere`
 
 1) Clone the repo
 2) `cd backend`
 3) Create `.env` with `MONGO_INITDB_ROOT_PASSWORD=yourpasswordhere`
-4) `docker compose build`
+4) Create `.env` with `MONGO_INITDB_DATABASe=yourdatabasehere`
+5) `docker compose build`
 
 ## Usage
 
