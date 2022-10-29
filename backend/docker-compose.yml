@@ -4,3 +4,12 @@ services:
     build: ./node 
     ports:
       - "3000:3000"
+  mongodb:
+    build: ./mongodb
+    volumes:
+      - mongodb:/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD} 
+volumes:
+  mongodb:
