@@ -1,16 +1,18 @@
 const express = require('express');
 const cors = require('cors');
-const db = require('./db/db');
+const mongodb = require('./config/mongodb');
 
 const app = express()
-const port = 3000
+const port = process.env.BACKEND_PORT || 3000;
 
 app.use(cors());
 app.use(express.urlencoded({extended: true}));
 
+app.use('/', require('./routes/index.js'));
+
 app.listen(port, async () => {
 
-    await db.connect();
+    await mongodb.connect();
     console.log(`App listening on port ${port}`);
 
 });
