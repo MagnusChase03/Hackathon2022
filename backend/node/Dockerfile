@@ -9,7 +9,7 @@ workdir app
 
 copy ./src/package.json .
 run yarn install
-copy ./src/* .
+copy ./src .
 
 cmd ["node", "index.js"]
 
