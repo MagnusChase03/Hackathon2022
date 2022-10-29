@@ -9,7 +9,7 @@ module.exports = {
     connect: async function() {
 
         var conn = await client.connect();
-        db = conn.db('Hackathon2022');
+        db = conn.db(process.env.MONGO_INITDB_DATABASE);
         console.log(db);
 
     },
