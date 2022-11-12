@@ -1,4 +1,18 @@
-const sanatize = (req, res, next) => {
+const sanatizeGet = (req, res, next) => {
+
+    if (req.headers.username == null) {
+
+        res.redirect('/teapot');
+
+    } else {
+
+        next();
+
+    }
+
+}
+
+const sanatizePost = (req, res, next) => {
 
     if (req.body.username == null
         || req.body.publicStockPercent == null || req.body.privateStockPercent == null || req.body.bondsPercent == null
@@ -17,6 +31,7 @@ const sanatize = (req, res, next) => {
 
 module.exports = {
 
-    sanatize
+    sanatizeGet,
+    sanatizePost
 
 }

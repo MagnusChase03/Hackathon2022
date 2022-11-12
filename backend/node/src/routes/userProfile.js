@@ -3,6 +3,7 @@ const router = express.Router();
 const userProfileController = require('../controllers/userProfileController');
 const userProfileSanatation = require('../middleware/userProfileSanatation');
 
-router.post('/', userProfileSanatation.sanatize, userProfileController.createUserProfile)
+router.get('/', userProfileSanatation.sanatizeGet, userProfileController.getUserProfile)
+router.post('/', userProfileSanatation.sanatizePost, userProfileController.createUserProfile)
 
 module.exports = router;

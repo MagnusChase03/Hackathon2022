@@ -6,6 +6,12 @@ const getUsers = async () => {
 
 }
 
+const getUser = async (username) => {
+
+    return await mongodb.getDB().collection('userProfiles').find({"username": username}).toArray();
+
+}
+
 const insertUser = async (userProfileData) => {
 
     await mongodb.getDB().collection('userProfiles').insertOne(userProfileData);
@@ -15,6 +21,7 @@ const insertUser = async (userProfileData) => {
 module.exports = {
 
     getUsers,
+    getUser,
     insertUser
 
 }
