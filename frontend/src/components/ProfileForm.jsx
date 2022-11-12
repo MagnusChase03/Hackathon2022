@@ -1,8 +1,8 @@
 
-import React from 'react';
+import Reac from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import '../styles/ProfileForm.css'
-export default function ProfileForm() {
+export default function ProfileForm(props) {
  
     return (
       <Formik
@@ -15,7 +15,7 @@ export default function ProfileForm() {
         
       }}
       onSubmit={async (values) => {
-        console.log("Submitted")
+        props.handler(values);
       }}
     >
       {({ values }) => (
