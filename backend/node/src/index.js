@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.urlencoded({extended: true}));
 
 app.use('/', require('./routes/index.js'));
+app.use('/teapot', require('./routes/teapot.js'));
 
 app.listen(port, async () => {
 
