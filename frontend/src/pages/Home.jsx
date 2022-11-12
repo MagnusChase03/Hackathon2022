@@ -5,6 +5,7 @@
 import { React, Suspense, useState, lazy } from 'react';
 import Header from '../components/Header';
 import ProfileForm from '../components/ProfileForm';
+import '../styles/Home.css';
 
 export default function Home() {
     const [formSubmitted, setFormSubmitted] = useState(false);
@@ -32,11 +33,7 @@ export default function Home() {
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
-            body: new URLSearchParams({
-                'userName': 'test@gmail.com',
-                'password': 'Password!',
-                'grant_type': 'password'
-            })
+            body: new URLSearchParams(userObject)
         });
 
         data = await data.json();
