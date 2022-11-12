@@ -5,8 +5,10 @@ run mkdir /app \
 
 run apt update -y \
     && apt install python3 -y \
-    && apt install python3-pip -y \ 
-    && pip3 install numpy
+    && apt install python3-pip -y
+
+run pip3 install numpy \
+    && pip3 install pymongo
 
 # user node
 workdir app
