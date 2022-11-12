@@ -41,13 +41,24 @@ def getData():
 def readData(company):
     database = connectDB()
 
-    companyCollection = database[company].find_one()
-    initial = company["2022-11-10"]["close"]
-    final = company["2022-11-11"]["close"]
+    try:
+        companyCollection = database[company].find_one()
+        initial = companyCollection["2022-11-10"]
+        initial = initial["4. close"]
+        final = companyCollection["2022-11-11"]
+        final = final["4. close"]
 
-    ret = (final - initial) / initial
-    companyStats = database["stockReturnValues"]
-    companyStats.insert_one({company: ret})
+        ret = (float(final) - float(initial)) / float(initial)
+        companyStats = database["stockReturnValues"]
+        print(companyStats)
+        for i in companyStats.find():
+            print(i)
+
+        data = {company: ret}
+        print(data)
+        companyStats.insert_one(data)
+    except:
+        print("%s did not work" % company)
 
 
 def calculateReturn():
@@ -57,6 +68,7 @@ def calculateReturn():
 
 def main():
     #getData()
+    #calculateReturn()
     pass
 
 main()
