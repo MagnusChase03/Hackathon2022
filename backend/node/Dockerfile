@@ -1,9 +1,14 @@
-from node:19.0.0-alpine3.15
+from node:19.0.1-bullseye
 
 run mkdir /app \
     && chown -R node:node /app
 
-user node
+run apt update -y \
+    && apt install python3 -y \
+    && apt install python3-pip -y \ 
+    && pip3 install numpy
+
+# user node
 workdir app
 
 copy ./src/package.json .
