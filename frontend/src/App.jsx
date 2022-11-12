@@ -8,6 +8,8 @@ import Teapot from './pages/Teapot';
 import NoPage from './pages/NoPage';
 import './App.css';
 
+window.serverURL = "testURL";
+
 function App() {
   return (
     <div className="App">

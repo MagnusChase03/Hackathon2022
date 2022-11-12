@@ -1,8 +1,8 @@
 
-import React from 'react';
+import Reac from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 
-export default function ProfileForm() {
+export default function ProfileForm(props) {
     return (
       <Formik
         initialValues={{
@@ -11,7 +11,7 @@ export default function ProfileForm() {
           email: '',
         }}
         onSubmit={async (values) => {
-          alert(values);
+          props.handler(values);
         }}
       >
         <Form>
