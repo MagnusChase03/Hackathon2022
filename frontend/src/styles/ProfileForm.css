@@ -1,0 +1,13 @@
+#form
+{
+  float: left;
+}
+label{
+    display: block;
+}
+h3{
+    margin-top: 5%;
+}
+#submit{
+    margin-top: 5%;
+}
