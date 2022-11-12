@@ -33,9 +33,10 @@ const createUserProfile = async (req, res, next) => {
 
 }
 
+
 module.exports = {
 
     getUserProfile,
-    createUserProfile
+    createUserProfile,
 
 }
