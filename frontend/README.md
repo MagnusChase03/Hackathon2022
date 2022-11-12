@@ -9,7 +9,6 @@
 
 ## Potential Packages
 - formik (Create rich forms easily)
-- react-cookie (cookie management in React hook style)
 - yup (Form validation)
 
 
@@ -53,3 +52,25 @@ fetch('https://example.com/login', {
     })
 });
 ```
+
+
+## Conceptual Overview
+### Inputs
+
+#### Future
+- [FUTURE] User Data
+
+- Current Portfolio
+  - Percentage of portfolio by type
+  - Public Stocks
+  - Private Stocks
+  - Bonds
+  - Crypto
+  - Forex?
+- Liquidity Preference
+- Investment Length
+- Disposable Income Bracket
+- Financial Goal
+
+### Outputs
+- 
