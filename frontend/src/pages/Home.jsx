@@ -2,7 +2,7 @@
 
 */
 
-import { React, Suspense, useState, lazy } from 'react';
+import { React, useState } from 'react';
 import Header from '../components/Header';
 import ProfileForm from '../components/ProfileForm';
 import '../styles/Home.css';
@@ -14,6 +14,8 @@ export default function Home() {
     async function handleFormSubmission(values) {
         setFormSubmitted(true);
 
+        // window.username = values.username
+        window.username = "Test User"
 
         const userObject = {
             'username': "Test User",
@@ -43,7 +45,7 @@ export default function Home() {
 
     return(
         <div className='homeDiv'>
-            <Header />
+            <Header message="Investment Buddy"/>
             {(!formSubmitted) && <ProfileForm handler={handleFormSubmission} />}
 
             {formSubmitted && !dataReady && <h1>LOADING...</h1>}
