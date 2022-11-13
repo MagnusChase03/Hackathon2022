@@ -1,23 +1,33 @@
 
-#form
+form
 {
-  float: left;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
+
 label{
     display: block;
 }
+
+.testRadio {
+    accent-color: white;
+    color: white;
+}
+
+
+
 .question,#submit{
     margin-top: 5%;
 }
 .question{
-
-        box-sizing: border-box;
-        width: auto;
-        padding-left: 5%;
-        padding-right: 5%;
-        border: 1px solid #E6E6E6;
-        border-radius: 20px;
-        box-shadow: 0px 3px 18px 0px rgba(200, 50, 200, .5);
+    box-sizing: border-box;
+    width: auto;
+    padding-top: 2%;
+    padding-bottom: 2%;
+    border: 1px solid #E6E6E6;
+    border-radius: 20px;
+    /* box-shadow: 0px 3px 18px 0px rgba(200, 50, 200, .5); */
 }
 .yesno{
      display:flex;
