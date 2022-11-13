@@ -6,7 +6,7 @@ import requests
 import json
 import time
 
-COMPANIES = ['AXP', 'AMGN', 'AAPL', 'BA', 'CAT', 'CSCO', 'CVX', 'GS', 'HD', 'HON', 'IBM', 'JNJ', 'KO', 'JPM', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PG', 'TRV', 'UNH', 'VZ', 'V', 'WBA', 'WMT', 'DIS', 'DOW']
+COMPANIES = ['GME', 'AXP', 'AMGN', 'AAPL', 'BA', 'CAT', 'CSCO', 'CVX', 'GS', 'HD', 'HON', 'IBM', 'JNJ', 'KO', 'JPM', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PG', 'TRV', 'UNH', 'VZ', 'V', 'WBA', 'WMT', 'DIS', 'DOW']
 DB = None
 API_KEY = os.environ["API_KEY"]
 
@@ -175,7 +175,7 @@ def cov(returnValues, returnValueMean, marketReturnValues, marketReturnValuesMea
     num = 0
     for i in range(0, len(returnValues)):
 
-        total += ((returnValues[i] - returnValueMean) * (marketReturnValues[i] * marketReturnValuesMean))
+        total += ((returnValues[i] - returnValueMean) * (marketReturnValues[i] - marketReturnValuesMean))
         num += 1
 
     return total / (num - 1)
@@ -218,5 +218,6 @@ def main():
     print(risk("AAPL"))
     print(risk("CSCO"))
     print(risk("NKE"))
+    print(risk("GME"))
 
 main()
