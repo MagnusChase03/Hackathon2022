@@ -118,18 +118,6 @@ const getFXReturnRates = async (currency) => {
 
 }
 
-// def risk(company):
-//     returnRates = getReturnRates(company)
-//     returnRatesMean = getMean(returnRates)
-
-//     marketRates = getMarketRates()
-//     marketRatesMean = getMean(marketRates)
-
-//     topCov = cov(returnRates, returnRatesMean, marketRates, marketRatesMean)
-//     marketVariance = getVar(marketRates, marketRatesMean)
-
-//     return topCov / marketVariance
-
 const risk = async (company) => {
 
     var returnRates = await getReturnRates(company);
@@ -147,12 +135,42 @@ const risk = async (company) => {
 
 }
 
+// def riskFX(currency):
+//     currecnyReturnRates = getFXReturnRates(currency)
+//     currecnyReturnRatesMean = getMean(currecnyReturnRates)
+
+//     marketRates = getCurrenyRates()
+//     marketRatesMean = getMean(marketRates)
+
+//     topCov = cov(currecnyReturnRates, currecnyReturnRatesMean, marketRates, marketRatesMean)
+//     marketVariance = getVar(marketRates, marketRatesMean)
+
+//     return topCov / marketVariance
+
+const riskFX = async (currency) => {
+
+    var returnRates = await getFXReturnRates(currency);
+    var returnRatesMean = stats.mean(returnRates);
+    console.log(returnRates);
+    console.log(returnRatesMean);
+
+    var marketRates = await getCurrencyRates();
+    var marketRatesMean = stats.mean(marketRates);
+
+    var covar = stats.covariance(returnRates, returnRatesMean, marketRates, marketRatesMean);
+    var marketVar = stats.variance(marketRates, marketRatesMean);
+
+    return covar / marketVar;
+
+}
+
 module.exports = {
 
     getMarketRates,
     getCurrencyRates,
     getReturnRates,
     getFXReturnRates,
-    risk
+    risk,
+    riskFX
 
 }
