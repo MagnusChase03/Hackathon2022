@@ -66,7 +66,7 @@ export default function Home() {
     else if (cookies.loggedIn == "true") {
         return(
             <>
-            <Header message="Investment Buddy" />
+            <Header message="Riskalyze" />
             { (!formSubmitted) && <ProfileForm handler={handleFormSubmission} /> }
             { formSubmitted && !dataReady && <h1>LOADING...</h1> }
             </>
@@ -76,7 +76,7 @@ export default function Home() {
     else {
         return(
             <>
-                <Header message="Investment Buddy" />
+                <Header message="Riskalyze" />
                 <Login handler={handleLogin} />
             </>
         );

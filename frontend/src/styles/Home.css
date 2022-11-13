@@ -1,4 +1,4 @@
 .homeDiv {
     padding-top: 10%;
-    width: 30vw;
+    min-width: 30vw;
 }
