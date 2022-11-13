@@ -8,6 +8,7 @@ import time
 
 COMPANIES = ['GME', 'AXP', 'AMGN', 'AAPL', 'BA', 'CAT', 'CSCO', 'CVX', 'GS', 'HD', 'HON', 'IBM', 'JNJ', 'KO', 'JPM', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PG', 'TRV', 'UNH', 'VZ', 'V', 'WBA', 'WMT', 'DIS', 'DOW']
 CURRENCIES = ['EUR', 'GBP', 'CAD']
+CRYPTO = ['BTC', 'ETH', 'BNB']
 DB = None
 API_KEY = os.environ["API_KEY"]
 
@@ -17,6 +18,10 @@ def makeRequest(company):
 
 def makeFXRequest(currency):
     res = requests.get("https://www.alphavantage.co/query?function=FX_DAILY&from_symbol=%s&to_symbol=USD&apikey=%s" % (currency, API_KEY))
+    return res
+
+def makeCryptoRequest(crypto):
+    res = requests.get("https://www.alphavantage.co/query?function=DIGITAL_CURRENCY_DAILY&symbol=%s&market=CNY&apikey=%s" % (crypto, API_KEY))
     return res
 
 def connectDB():
@@ -59,6 +64,27 @@ def getFXData():
             data = json.loads(res.text)
 
             for date, data in data["Time Series FX (Daily)"].items():
+                
+                cleanedObj = {"date": date}
+                for key, value in data.items():
+                    cleanedObj[key] = value
+
+                collection.insert_one(cleanedObj)
+
+                time.sleep(50/1000)
+
+def getCryptoData():
+    for crypto in CRYPTO:
+        collection = DB[crypto]
+
+        if (collection.count_documents({}) == 0):
+
+            print("Grabbing %s data..." % (crypto))
+            
+            res = makeCryptoRequest(crypto)
+            data = json.loads(res.text)
+
+            for date, data in data["Time Series (Digital Currency Daily)"].items():
                 
                 cleanedObj = {"date": date}
                 for key, value in data.items():
@@ -286,9 +312,10 @@ def main():
     getMarketData()
     getFXData()
     getBondData()
-    print(getFXReturnRates("EUR"))
-    print(riskFX("EUR"))
-    print(riskFX("CAD"))
+    getCryptoData()
+    # print(getFXReturnRates("EUR"))
+    # print(riskFX("EUR"))
+    # print(riskFX("CAD"))
     # print(getIntrestSharp())
     # print(getSharp("AAPL"))
     # print(getSharp("CSCO"))

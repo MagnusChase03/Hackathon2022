@@ -1,13 +1,20 @@
 const stocks = require('../finance/stocks/stocks');
 
-const getAssets = async (req, res, next) => {
+const getRisks = async (req, res, next) => {
 
-    res.json({"Stocks": await stocks.getAllRisk(), "FX": await stocks.getAllFXRisk() });
+    res.json({"Stocks": await stocks.getAllRisk(), "FX": await stocks.getAllFXRisk() , "Crypto": await stocks.getAllCryptoRisk()});
+
+}
+
+const getReturnRates = async (req, res, next) => {
+
+    res.json({"Stocks": await stocks.getAllReturnRates(), "FX": await stocks.getAllFXReturnRates() , "Crypto": await stocks.getAllCryptoReturnRates()});
 
 }
 
 module.exports = {
 
-    getAssets
+    getRisks,
+    getReturnRates
 
 }
