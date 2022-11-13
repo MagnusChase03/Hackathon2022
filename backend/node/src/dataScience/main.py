@@ -104,12 +104,13 @@ def getIntrestMean():
     
     collection = DB["Bonds"]
 
+    intrestReturnRates = getIntrestReturnRates()
+
     total = 0.0
     n = 0
 
-    for month in collection.find():
-        print(float(month["avg_interest_rate_amt"]))
-        total += float(month["avg_interest_rate_amt"])
+    for month in intrestReturnRates:
+        total += month
         n += 1
 
     return total / n
@@ -123,20 +124,22 @@ def getStd(returnRates, mean):
         total += (returnRate - mean) ** 2
         n += 1
 
-    return (total / n) ** (1/2)
+    return (total / (n - 1)) ** (1/2)
 
 def getIntrestStd(mean):
     
+    intrestReturnRates = getIntrestReturnRates()
+
     collection = DB["Bonds"]
 
     total = 0.0
     n = 0
 
-    for month in collection.find():
-        total += (float(month["avg_interest_rate_amt"]) - mean) ** 2
+    for month in intrestReturnRates:
+        total += (month - mean) ** 2
         n += 1
 
-    return (total / n) ** (1/2)
+    return (total / (n - 1)) ** (1/2)
 
 def getSharp(company):
     returnRates = getReturnRates(company)
@@ -150,7 +153,6 @@ def getIntrestSharp():
 
     m = getIntrestMean()
     s = getIntrestStd(m)
-    print("%s %s" % (m, s))
 
     return m / s
 
@@ -159,5 +161,6 @@ def main():
     getMarketData()
     getBondData()
     print(getIntrestSharp())
+    print(getSharp("AAPL"))
 
 main()
