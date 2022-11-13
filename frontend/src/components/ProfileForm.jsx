@@ -3,7 +3,30 @@ import Reac from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Radio, FormControlLabel, MenuItem } from '@mui/material';
 import { RadioGroup, TextField } from '@mui/material';
+// import {createTheme} from '@mui/material/styles';
 import '../styles/ProfileForm.css'
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+
+
+let theme = createTheme({
+  palette: {
+    primary: {
+      main: '#1ce1ce',
+    },
+    secondary: {
+      main: '#edf2ff',
+    },
+  },
+});
+
+theme = createTheme(theme, {
+  palette: {
+    info: {
+      main: theme.palette.secondary.main,
+    },
+  },
+});
+
 
 export default function ProfileForm(props) {
  
@@ -25,8 +48,10 @@ export default function ProfileForm(props) {
 
       {({ values }) => (
         
+        
         <Form id='form'>
 
+<ThemeProvider theme={theme}>
 
             <h3 className='question'>Do you have any current investments?</h3>
             <Field component={RadioGroup} name="currentInvestment">
@@ -34,11 +59,14 @@ export default function ProfileForm(props) {
                 value="Yes"
                 control={<Radio />}
                 label="Yes"
+                color='primary'
               />
+             
               <FormControlLabel
                 value="No"
                 control={<Radio />}
                 label="No"
+                color='primary'
               />
             </Field>
 
@@ -97,46 +125,79 @@ export default function ProfileForm(props) {
 
             >
 
-              <MenuItem key="10" value="10000">
-                $10,000
+              <MenuItem key="10" value="0-5000">
+                Under $5,000
               </MenuItem>
-              {/* JOSH ADD MORE FIELDS HERE */}
+              <MenuItem key="10" value="5000-10000">
+                $5,000 - $10,000
+              </MenuItem>
+              <MenuItem key="10" value="10001-20000">
+                $10,001 - $20,000 
+              </MenuItem>
+              <MenuItem key="10" value="20001-50000">
+                $20,001 - $50,000
+              </MenuItem>
+              <MenuItem key="10" value="50001-100000">
+                $50,001 - $100,000
+              </MenuItem>
+              <MenuItem key="10" value="100000-999999">
+                More than $100,000
+              </MenuItem>
               </Field>
 
 
 
           <h3 className='question'>In case of emergency, do you need access to your funds?</h3>
-          <div className='yesno' role="group" aria-labelledby="my-radio-group">
-            <label>
-              <Field type="radio" name="emergencyAccess" value="Yes" />
-              Yes
-            </label>
-            <label>
-              <Field type="radio" name="emergencyAccess" value="No" />
-              No
-            </label>
-          </div>
+          <Field component={RadioGroup} name="emergencyAccess">
+              <FormControlLabel
+                value="Yes"
+                control={<Radio />}
+                label="Yes"
+                color='primary'
+
+              />
+              <FormControlLabel
+                value="No"
+                control={<Radio />}
+                label="No"
+                color='primary'
+
+              />
+            </Field>
 
 
-          <div>
           <h3 className='question'> What percentage of investment would you need access to in case of emergency?</h3>
-          <label htmlFor="liquidityPreference">Emergency Percent</label>
-        <Field className="textField" id="liquidityPreference" name="liquidityPreference" placeholder="25" />%
-        </div>
+          <TextField
+              fullWidth
+              id="liquidityPreference"
+              name="liquidityPreference"
+              label="% Liquidity Preference"
+              placeholder='20'
+              value={values.liquidityPreference}
+            />
 
-        <div>
           <h3 className='question'>What are your financial goals?</h3>
-          <label htmlFor="financialGoal">Growth Percentage</label>
-          <Field className="textField" id="financialGoal" name="financialGoal" placeholder="10" />%
-        </div>
+          <TextField
+              fullWidth
+              id="financialGoal"
+              name="financialGoal"
+              label="% Financial Goal"
+              placeholder='20'
+              value={values.financialGoal}
+            />
 
-        <div>
           <h3 className='question'>How long are you looking to invest?</h3>
-          <label htmlFor="investmentLength">Investment Length</label>
-          <Field className="textField" id="investmentLength" name="investmentLength" placeholder="3" /> Year(s)
-        </div>
+          <TextField
+              fullWidth
+              id="investmentLength"
+              name="investmentLength"
+              label="% Investment Length"
+              placeholder='20'
+              value={values.investmentLength}
+            />
 
         <button type="submit" id='submit'>Submit</button>
+        </ThemeProvider>
 
         </Form>
       )}

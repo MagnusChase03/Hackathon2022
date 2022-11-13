@@ -1,7 +1,4 @@
 
-$primary-color: #00005c;
-$text-color: mix(#000, $primary-color, 64%); 
-
 #form
 {
   float: left;
@@ -23,23 +20,12 @@ label{
         box-shadow: 0px 3px 18px 0px rgba(200, 50, 200, .5);
 }
 .yesno{
-    // display:flex;
-    // align-items: center;
-    // flex-wrap: wrap;
-    // justify-content: space-evenly;
+     display:flex;
+     align-items: center;
+     flex-wrap: wrap;
+     justify-content: space-evenly;
     /* float: right; */
 
-    background-color: mix(#fff, #00005c, 84%); 
-    position: absolute;
-    left: -9999px;
-    &:checked + span {
-      background-color: mix(#fff, $primary-color, 84%);
-      &:before {
-        box-shadow: inset 0 0 0 0.4375em $primary-color;
-      }
-    }
-    transition: 1.25s ease;
-    // &:hover {
 }
 
 .textField{
