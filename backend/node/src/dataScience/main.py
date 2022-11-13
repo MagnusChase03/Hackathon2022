@@ -49,8 +49,8 @@ def getMean(company):
     total = 0.0
     n = 0
 
-    for day in collection:
-        total += day["4. close"]
+    for day in collection.find():
+        total += float(day["4. close"])
         n += 1
     
     if n == 0:
