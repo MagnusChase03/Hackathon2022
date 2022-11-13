@@ -1,9 +1,10 @@
 
 import Reac from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
+import { Radio, FormControlLabel, MenuItem } from '@mui/material';
+import { RadioGroup, TextField } from '@mui/material';
 import '../styles/ProfileForm.css'
-import { Radio } from '@mui/material';
-import { useRadioGroup } from '@mui/material/RadioGroup';
+
 export default function ProfileForm(props) {
  
     return (
@@ -21,69 +22,88 @@ export default function ProfileForm(props) {
         props.handler(values);
       }}
     >
+
       {({ values }) => (
         
         <Form id='form'>
 
-          <h3 className='question'>Do you have any current investments?</h3>
-          <div className='yesno' role="group" aria-labelledby="my-radio-group">
-            <label>
-              
-              <Field type='radio' name="investments" value="Yes" />
-              Yes
-            </label>
-            <label>
-              <Field type='radio' name="investments" value="No" />
-              No
-            </label>
-          </div>
-        <div>
-        <h3 className='question'>If you do, what are they?</h3>
 
-        <label htmlFor="investmentDiversity">Public Stock Percent</label>
-          <Field className="textField" id="investmentDiversity" name="publicStockPercent" placeholder="20" />%
+            <h3 className='question'>Do you have any current investments?</h3>
+            <Field component={RadioGroup} name="currentInvestment">
+              <FormControlLabel
+                value="Yes"
+                control={<Radio />}
+                label="Yes"
+              />
+              <FormControlLabel
+                value="No"
+                control={<Radio />}
+                label="No"
+              />
+            </Field>
 
-        <label htmlFor="investmentDiversity">Private Stock Percentage</label>
-          <Field className="textField" id="investmentDiversity" name="privateStockPercent" placeholder="20" />%
-
-        <label htmlFor="investmentDiversity">Bonds Percentage</label>
-          <Field className="textField" id="investmentDiversity" name="bondsPercent" placeholder="20" />%
-
-        <label htmlFor="investmentDiversity">Crypto Percentage</label>
-          <Field className="textField" id="investmentDiversity" name="cryptoPercent" placeholder="20" />%
-
-        <label htmlFor="investmentDiversity">Foreign Exchange Percentage</label>
-          <Field className="textField" id="investmentDiversity" name="forexPercent" placeholder="20" />%
-        </div>
+            <h3 className='question'>If you do, what are they?</h3>
+            <TextField
+              fullWidth
+              id="publicStockPercent"
+              name="publicStockPercent"
+              label="% Public Stocks"
+              placeholder='20'
+              value={values.publicStockPercent}
+            />
+            <TextField
+              fullWidth
+              id="privateStockPercent"
+              name="privateStockPercent"
+              label="% Private Stocks"
+              placeholder='20'
+              value={values.privateStockPercent}
+            />
+            <TextField
+              fullWidth
+              id="bondsPercent"
+              name="bondsPercent"
+              label="% Government Bonds"
+              placeholder='20'
+              value={values.bondsPercent}
+            />
+            <TextField
+              fullWidth
+              id="cryptoPercent"
+              name="cryptoPercent"
+              label="% Cryptocurrency"
+              placeholder='20'
+              value={values.cryptoPercent}
+            />
+            <TextField
+              fullWidth
+              id="forexPercent"
+              name="forexPercent"
+              label="% Foreign Exchange"
+              placeholder='20'
+              value={values.forexPercent}
+            />
           
 
           <h3 className='question'>How much are you thinking about investing?</h3>
-          <div className='yesno' role="group" aria-labelledby="disposableIncomeBracket">
-            <label>
-              <Field type="radio" name="disposableIncomeBracket" value="0-5000" />
-              Under $5000
-            </label>
-            <label>
-              <Field type="radio" name="disposableIncomeBracket" value="5001-10000" />
-              $5000-$10000
-            </label>
-            <label>
-              <Field type="radio" name="disposableIncomeBracket" value="10001-20000" />
-              $10001-$20000
-            </label>
-            <label>
-              <Field type="radio" name="disposableIncomeBracket" value="20001-50000" />
-              $20001-$50000
-            </label>
-            <label>
-              <Field type="radio" name="disposableIncomeBracket" value="50001-100000" />
-              $50001-$100000
-            </label>
-            <label>
-              <Field type="radio" name="disposableIncomeBracket" value="100001-999999" />
-              $100001+
-            </label>
-          </div>
+            <Field
+              fullWidth
+              select
+              component={TextField} 
+              id="disposableIncomeBracket"
+              value={values.disposableIncomeBracket}
+              helperText="Disposable Income Bracket"
+              // onChange={handleChange}
+
+            >
+
+              <MenuItem key="10" value="10000">
+                $10,000
+              </MenuItem>
+              {/* JOSH ADD MORE FIELDS HERE */}
+              </Field>
+
+
 
           <h3 className='question'>In case of emergency, do you need access to your funds?</h3>
           <div className='yesno' role="group" aria-labelledby="my-radio-group">
@@ -117,6 +137,7 @@ export default function ProfileForm(props) {
         </div>
 
         <button type="submit" id='submit'>Submit</button>
+
         </Form>
       )}
     </Formik>
