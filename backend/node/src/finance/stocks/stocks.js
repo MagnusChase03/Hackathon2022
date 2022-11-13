@@ -98,6 +98,19 @@ const getCryptoRates = async () => {
 
 }
 
+const getAllCryptoReturnRates = async ()  => {
+
+    returnRates = {};
+    for (var i = 0; i < CRYPTO.length; i++) {
+
+        returnRates[CRYPTO[i]] = await getCryptoReturnRates(CRYPTO[i]);
+
+    }
+
+    return returnRates;
+
+}
+
 const getReturnRates = async (company) => {
 
     var collection = await mongodb.getDB().collection(company);
@@ -124,6 +137,19 @@ const getReturnRates = async (company) => {
 
 }
 
+const getAllReturnRates = async () => {
+
+    returnRates = {};
+    for (var i = 0; i < COMPANIES.length; i++) {
+
+        returnRates[COMPANIES[i]] = await getReturnRates(COMPANIES[i]);
+
+    }
+
+    return returnRates;
+
+}
+
 const getFXReturnRates = async (currency) => {
 
     var collection = await mongodb.getDB().collection(currency);
@@ -143,6 +169,19 @@ const getFXReturnRates = async (currency) => {
         var final = parseFloat(days[i]["4. close"]);
 
         returnRates.push((final - initial) / initial);
+
+    }
+
+    return returnRates;
+
+}
+
+const getAllFXReturnRates = async () => {
+
+    returnRates = {};
+    for (var i = 0; i < CURRENCIES.length; i++) {
+
+        returnRates[CURRENCIES[i]] = await getReturnRates(CURRENCIES[i]);
 
     }
 
@@ -284,6 +323,9 @@ module.exports = {
     riskCrypto,
     getAllRisk,
     getAllFXRisk,
-    getAllCryptoRisk
+    getAllCryptoRisk,
+    getAllFXReturnRates,
+    getAllReturnRates,
+    getAllCryptoReturnRates
 
 }
