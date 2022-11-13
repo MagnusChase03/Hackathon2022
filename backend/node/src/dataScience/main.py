@@ -71,7 +71,28 @@ def getReturnRates(company):
 
         returnRates.append((final - initial) / initial)
 
-    return returnRates   
+    return returnRates
+
+def getMarketRates():
+
+    returnRates = []
+    for company in COMPANIES:
+        returnRates.append(getReturnRates(company))
+
+    meanReturnRates = []
+    for i in range(0, len(returnRates[0])):
+
+        total = 0.0
+        num = 0
+        for j in range(0, len(returnRates)):
+            total += returnRates[j][i]
+            num += 1
+
+        total = total / num
+        meanReturnRates.append(total)
+
+    return meanReturnRates
+
 
 def getIntrestReturnRates():
     collection = DB["Bonds"]
@@ -101,8 +122,6 @@ def getMean(returnRates):
     return total / n
 
 def getIntrestMean():
-    
-    collection = DB["Bonds"]
 
     intrestReturnRates = getIntrestReturnRates()
 
@@ -126,11 +145,20 @@ def getStd(returnRates, mean):
 
     return (total / (n - 1)) ** (1/2)
 
+def getVar(returnRates, mean):
+    
+    total = 0.0
+    n = 0
+
+    for returnRate in returnRates:
+        total += (returnRate - mean) ** 2
+        n += 1
+
+    return total / (n - 1)
+
 def getIntrestStd(mean):
     
     intrestReturnRates = getIntrestReturnRates()
-
-    collection = DB["Bonds"]
 
     total = 0.0
     n = 0
@@ -140,6 +168,30 @@ def getIntrestStd(mean):
         n += 1
 
     return (total / (n - 1)) ** (1/2)
+
+def cov(returnValues, returnValueMean, marketReturnValues, marketReturnValuesMean):
+
+    total = 0.0
+    num = 0
+    for i in range(0, len(returnValues)):
+
+        total += ((returnValues[i] - returnValueMean) * (marketReturnValues[i] * marketReturnValuesMean))
+        num += 1
+
+    return total / (num - 1)
+
+
+def risk(company):
+    returnRates = getReturnRates(company)
+    returnRatesMean = getMean(returnRates)
+
+    marketRates = getMarketRates()
+    marketRatesMean = getMean(marketRates)
+
+    topCov = cov(returnRates, returnRatesMean, marketRates, marketRatesMean)
+    marketVariance = getVar(marketRates, marketRatesMean)
+
+    return topCov / marketVariance
 
 def getSharp(company):
     returnRates = getReturnRates(company)
@@ -162,5 +214,9 @@ def main():
     getBondData()
     print(getIntrestSharp())
     print(getSharp("AAPL"))
+    print(getSharp("CSCO"))
+    print(risk("AAPL"))
+    print(risk("CSCO"))
+    print(risk("NKE"))
 
 main()
