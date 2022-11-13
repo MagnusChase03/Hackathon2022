@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import '../styles/Dashboard.css'
 import CanvasJSReact from '../assets/canvasjs.react';
@@ -6,6 +6,12 @@ var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 
 export default function Dashboard() {
+    const [riskData, setRiskData] = useState(null);
+    const [returnData, setReturnData] = useState(null);
+    const [recData, setRecData] = useState(null);
+    const [ready, setReady] = useState(false);
+
+
     const options = {
         exportEnabled: false,
         animationEnabled: true,
@@ -28,7 +34,53 @@ export default function Dashboard() {
             ]
         }]
     }
+
+    async function getRisks() {
+        let data = await fetch(window.serverURL + '/assets/risks', {
+            method: 'GET',
+        });
+
+        data = await data.json();
+        console.log(data.Stocks.GME);
+
+        // let arr = []
+
+        // for (const [key, value] of Object.entries(data.Stocks)) {
+        //     console.log(`${key} -> ${value}`)
+        // }
+
+        
+
+        setRiskData(data);
+        setReady(true);
+    }
+    async function getReturns() {
+        let data = await fetch(window.serverURL + '/assets/returnRates', {
+            method: 'GET',
+        });
+
+        data = await data.json();
+        // console.log(data.Stocks);
+        setReturnData(data);
+        setReady(true);
+    }
+    async function getRec() {
+        let data = await fetch(window.serverURL + '/assets/reccomend', {
+            method: 'GET',
+        });
+
+        data = await data.json();
+        // console.log(data.Stocks);
+        setRecData(data);
+        setReady(true);
+    }
     
+    useEffect(() => {
+        getRisks();
+        getReturns();
+        getRec();
+    }, []);
+
     return (
     <>
     <Header message="Dashboard" />
@@ -42,6 +94,11 @@ export default function Dashboard() {
         </div>
         <div className="stockInfo">
             <h1>Stocks</h1>
+            <ul>
+                {(ready == 'true') && riskData.Stocks.map((stock) => (
+                    <li key={stock}>{stock}</li>
+                ))}
+            </ul>
         </div>
         <div className="bondInfo">
             <h1>Bonds</h1>
