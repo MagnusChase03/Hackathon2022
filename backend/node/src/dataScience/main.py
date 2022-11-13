@@ -43,6 +43,20 @@ def getMarketData():
 
                 time.sleep(50/1000)
 
+def getBondData():
+    f = open("bonds.json", "r")
+    data = f.read()
+    f.close()
+
+    collection = DB["Bonds"]
+
+    data = json.loads(data)
+    data = data["data"]
+    for month in data:
+        if not (collection.count_documents({"record_date": month["record_date"]}) == 0 and collection.count_documents({"src_line_nbr": month["src_line_nbr"]}) == 0):
+            collection.insert_one(month)
+
+
 def getReturnRates(company):
     collection = DB[company]
 
@@ -59,35 +73,21 @@ def getReturnRates(company):
 
     return returnRates   
 
-# def getMean(company):
-#     collection = DB[company]
+def getIntrestReturnRates():
+    collection = DB["Bonds"]
+
+    months = []
+    for month in collection.find():
+        months.append(month)
     
-#     total = 0.0
-#     n = 0
+    returnRates = []
+    for i in range(0, len(months) - 1):
+        initial = float(months[i + 1]["avg_interest_rate_amt"])
+        final = float(months[i]["avg_interest_rate_amt"])
 
-#     for day in collection.find():
-#         total += float(day["4. close"])
-#         n += 1
-    
-#     if n == 0:
-#         return total
+        returnRates.append((final - initial) / initial)
 
-#     return total / n
-
-# def getStd(company, mean):
-#     collection = DB[company]
-    
-#     total = 0.0
-#     n = 0
-
-#     for day in collection.find():
-#         total += (float(day["4. close"]) - mean) ** 2
-#         n += 1
-    
-#     if n == 0:
-#         return total
-
-#     return (total / n) ** (1/2)
+    return returnRates
 
 def getMean(returnRates):
     
@@ -96,6 +96,20 @@ def getMean(returnRates):
 
     for returnRate in returnRates:
         total += returnRate
+        n += 1
+
+    return total / n
+
+def getIntrestMean():
+    
+    collection = DB["Bonds"]
+
+    total = 0.0
+    n = 0
+
+    for month in collection.find():
+        print(float(month["avg_interest_rate_amt"]))
+        total += float(month["avg_interest_rate_amt"])
         n += 1
 
     return total / n
@@ -111,6 +125,19 @@ def getStd(returnRates, mean):
 
     return (total / n) ** (1/2)
 
+def getIntrestStd(mean):
+    
+    collection = DB["Bonds"]
+
+    total = 0.0
+    n = 0
+
+    for month in collection.find():
+        total += (float(month["avg_interest_rate_amt"]) - mean) ** 2
+        n += 1
+
+    return (total / n) ** (1/2)
+
 def getSharp(company):
     returnRates = getReturnRates(company)
 
@@ -119,10 +146,18 @@ def getSharp(company):
 
     return m / s
 
+def getIntrestSharp():
+
+    m = getIntrestMean()
+    s = getIntrestStd(m)
+    print("%s %s" % (m, s))
+
+    return m / s
+
 def main():
     connectDB()
     getMarketData()
-    print(getSharp("AAPL"))
-    print(getSharp("CSCO"))
+    getBondData()
+    print(getIntrestSharp())
 
 main()
