@@ -11,8 +11,4 @@ const covariance = (returnValues, returnValueMean, marketReturnValues, marketRet
     return total / (num - 1);
 }
 
-module.exports = {
-
-    covariance
-
-}
+module.exports = { covariance };
