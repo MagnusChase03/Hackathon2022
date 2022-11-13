@@ -39,7 +39,6 @@ const theme = createTheme({
   }
 });
 
-
 window.serverURL = "http://127.0.0.1:3000";
 
 function App() {

@@ -142,7 +142,7 @@ export default function ProfileForm(props) {
       </RadioGroup>
 
 
-      {(formik.values.emergencyAccess) &&
+      {((formik.values.emergencyAccess) == "Yes") &&
       <div className='emergencyAccessSection'>
         <h3 className='question'>What percentage of investment would you need access to in case of emergency?</h3>
         <TextField
