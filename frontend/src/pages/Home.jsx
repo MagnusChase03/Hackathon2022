@@ -13,7 +13,8 @@ import Dashboard from '../components/Dashboard';
 export default function Home() {
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [dataReady, setDataReady] = useState(false);
-    const [cookies, setCookies] = useCookies(['loggedIn', 'username', 'profileComplete']);
+    const [cookies, setCookies] = useCookies(['loggedIn', 'username', 'profileComplete', 'userData', 'savings', 'publicStockPercent', 'bondsPercent', 'cryptoPercent', 'forexPercent']);
+    const [userData, setUserData] = useState(null);
 
 
     async function handleLogin(values) {
@@ -27,17 +28,27 @@ export default function Home() {
         setFormSubmitted(true);
 
         const userObject = {
-            'username': "Test User",
+            'username': values.username,
+            'currentInvestment': values.currentInvestment,
+            'financialGoal': values.financialGoal,
+            'disposableIncomeBracket': values.disposableIncomeBracket,
+            'emergencyAccess': values.emergencyAccess,
+            'liquidityPreference': values.liquidityPreference,
+            'investmentLength': values.investmentLength,
             'publicStockPercent': values.publicStockPercent,
-            'privateStockPercent': values.privateStockPercent,
+            'savings': values.savings,
             'bondsPercent': values.bondsPercent,
             'cryptoPercent': values.cryptoPercent,
             'forexPercent': values.forexPercent,
-            'liquidityPrefrence': values.liquidityPreference,
-            'investmentLength': values.investmentLength,
-            'disposableIncomeBracket': values.disposableIncomeBracket,
-            'financialGoal': values.financialGoal,
+            'riskLevel': values.riskLevel,
         }
+        setUserData(userObject);
+
+        setCookies('savings', userObject.savings, [{ path: '/' }, { sameSite: 'Lax' }]);
+        setCookies('publicStockPercent', userObject.publicStockPercent, [{ path: '/' }, { sameSite: 'Lax' }]);
+        setCookies('bondsPercent', userObject.bondsPercent, [{ path: '/' }, { sameSite: 'Lax' }]);
+        setCookies('cryptoPercent', userObject.cryptoPercent, [{ path: '/' }, { sameSite: 'Lax' }]);
+        setCookies('forexPercent', userObject.forexPercent, [{ path: '/' }, { sameSite: 'Lax' }]);
 
         let data = await fetch(window.serverURL + '/userProfile', {
             method: 'POST',
@@ -47,18 +58,20 @@ export default function Home() {
             body: new URLSearchParams(userObject)
         });
 
+        setDataReady(true);
+        setCookies('profileComplete', true, [{ path: '/' }, { sameSite: 'Lax' }]);
         data = await data.json();
-        if (data.Status == "Ok") {
-            setDataReady(true);
-            setCookies('profileComplete', true, [{ path: '/' }, { sameSite: 'Lax' }]);
-        }
+        // // if (data.Status == "Ok") {
+        // setDataReady(true);
+        // setCookies('profileComplete', true, [{ path: '/' }, { sameSite: 'Lax' }]);
+        // }
 
     }
 
     if ((cookies.loggedIn == "true") && (cookies.profileComplete == "true")) {
         return(
             <div className='homeDiv'>
-                <Dashboard />
+                <Dashboard userData={userData}/>
             </div>
         );
     }

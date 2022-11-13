@@ -2,15 +2,18 @@ import React, { useEffect, useState } from "react";
 import Header from "./Header";
 import '../styles/Dashboard.css'
 import CanvasJSReact from '../assets/canvasjs.react';
+import { useCookies } from "react-cookie";
+import { Button } from "@mui/material";
 var CanvasJSChart = CanvasJSReact.CanvasJSChart;
 
 
-export default function Dashboard() {
+export default function Dashboard(props) {
     const [riskData, setRiskData] = useState(null);
     const [returnData, setReturnData] = useState(null);
     const [recData, setRecData] = useState(null);
-    const [ready, setReady] = useState(false);
-
+    const [ready, setReady] = useState('false');
+    const [usData, setData] = useState(props.userData);
+    const [cookies, setCookies] = useCookies(['loggedIn', 'username', 'profileComplete', 'userData', 'savings', 'publicStockPercent', 'bondsPercent', 'cryptoPercent', 'forexPercent']);
 
     const options = {
         exportEnabled: false,
@@ -26,14 +29,15 @@ export default function Dashboard() {
             indexLabelFontSize: 13,
             indexLabel: "{label} - {y}%",
             dataPoints: [
-                { y: 18, label: "Savings" },
-                { y: 49, label: "Public Stocks" },
-                { y: 9, label: "Bonds" },
-                { y: 5, label: "Cryptocurrency" },
-                { y: 19, label: "Foreign Exchange" }
+                { y: parseFloat(cookies.savings) , label: "Savings" },
+                { y: parseFloat(cookies.publicStockPercent), label: "Public Stocks" },
+                { y: parseFloat(cookies.bondsPercent), label: "Bonds" },
+                { y: parseFloat(cookies.cryptoPercent), label: "Cryptocurrency" },
+                { y: parseFloat(cookies.forexPercent), label: "Foreign Exchange" }
             ]
         }]
     }
+
 
     async function getRisks() {
         let data = await fetch(window.serverURL + '/assets/risks', {
@@ -41,18 +45,10 @@ export default function Dashboard() {
         });
 
         data = await data.json();
-        console.log(data.Stocks.GME);
-
-        // let arr = []
-
-        // for (const [key, value] of Object.entries(data.Stocks)) {
-        //     console.log(`${key} -> ${value}`)
-        // }
-
-        
+        console.log(data.Stocks);
 
         setRiskData(data);
-        setReady(true);
+        setReady('true');
     }
     async function getReturns() {
         let data = await fetch(window.serverURL + '/assets/returnRates', {
@@ -76,9 +72,9 @@ export default function Dashboard() {
     }
     
     useEffect(() => {
-        getRisks();
-        getReturns();
-        getRec();
+        // getRisks();
+        // getReturns();
+        // getRec();
     }, []);
 
     return (
@@ -86,22 +82,18 @@ export default function Dashboard() {
     <Header message="Dashboard" />
     <div className="dashboardElements">
         <div className="chartDiv">
-            <h3>Recommended Portfolio Composition</h3>
+            <h3>Portfolio Composition</h3>
             <CanvasJSChart options = {options} />
-        </div>
-        <div className="savingsInfo">
-            <h1>Savings</h1>
         </div>
         <div className="stockInfo">
             <h1>Stocks</h1>
-            <ul>
+            <Button onClick={() => {getRisks()}} >Fetch Recommendations</Button>
                 {(ready == 'true') && riskData.Stocks.map((stock) => (
-                    <li key={stock}>{stock}</li>
+                    <div key={stock.company}>
+                        <p className="companyTicker">Ticker: {stock.company}</p>
+                        <p className="companyRisk">Risk Level: {stock.risk}</p>
+                    </div>
                 ))}
-            </ul>
-        </div>
-        <div className="bondInfo">
-            <h1>Bonds</h1>
         </div>
         <div className="cryptoInfo">
             <h1>Crypto</h1>

@@ -10,6 +10,10 @@
     width: 30vw;
 }
 
+ul {
+    list-style-type: none;  
+}
+
 .dashboardElements {
     width: 60vw;
     display: grid;
@@ -29,10 +33,10 @@
 }
 
 .stockInfo {
-  grid-row-start: 2;
-  grid-row-end: 3;
-  grid-column-start: 1;
-  grid-column-end: 3;
+  grid-row-start: 1;
+  grid-row-end: 2;
+  grid-column-start: 4;
+  grid-column-end: 6;
 }
 
 .bondInfo {
