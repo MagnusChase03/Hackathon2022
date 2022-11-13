@@ -5,6 +5,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_PASSWORD: ${MONGO_INITDB_ROOT_PASSWORD}
       MONGO_INITDB_DATABASE: ${MONGO_INITDB_DATABASE}
+      API_KEY: ${API_KEY}
     ports:
       - "3000:3000"
     depends_on:
