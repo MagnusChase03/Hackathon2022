@@ -1,8 +1,5 @@
-const stock = require("../finance/stocks/stocks");
-
 const getIndex = async (req, res, next) => {
 
-    console.log(await stock.riskFX("EUR"));
     res.json({"Message": "Hello World"});
 
 }

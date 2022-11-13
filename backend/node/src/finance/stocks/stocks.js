@@ -118,12 +118,20 @@ const getFXReturnRates = async (currency) => {
 
 }
 
+const getSharp = async (company) => {
+
+        var returnRates = await getReturnRates(company);
+        var mean = stats.mean(returnRates);
+        var std = stats.stDev(returnRates, mean);
+
+        return mean / std;
+
+}
+
 const risk = async (company) => {
 
     var returnRates = await getReturnRates(company);
     var returnRatesMean = stats.mean(returnRates);
-    console.log(returnRates);
-    console.log(returnRatesMean);
 
     var marketRates = await getMarketRates();
     var marketRatesMean = stats.mean(marketRates);
@@ -135,24 +143,10 @@ const risk = async (company) => {
 
 }
 
-// def riskFX(currency):
-//     currecnyReturnRates = getFXReturnRates(currency)
-//     currecnyReturnRatesMean = getMean(currecnyReturnRates)
-
-//     marketRates = getCurrenyRates()
-//     marketRatesMean = getMean(marketRates)
-
-//     topCov = cov(currecnyReturnRates, currecnyReturnRatesMean, marketRates, marketRatesMean)
-//     marketVariance = getVar(marketRates, marketRatesMean)
-
-//     return topCov / marketVariance
-
 const riskFX = async (currency) => {
 
     var returnRates = await getFXReturnRates(currency);
     var returnRatesMean = stats.mean(returnRates);
-    console.log(returnRates);
-    console.log(returnRatesMean);
 
     var marketRates = await getCurrencyRates();
     var marketRatesMean = stats.mean(marketRates);
@@ -164,13 +158,42 @@ const riskFX = async (currency) => {
 
 }
 
+const getAllRisk = async () => {
+
+    risks = {};
+    for (var i = 0; i < COMPANIES.length; i++) {
+
+        risks[COMPANIES[i]] = await risk(COMPANIES[i]);
+
+    }
+
+    return risks;
+
+}
+
+const getAllFXRisk = async () => {
+
+    risks = {};
+    for (var i = 0; i < CURRENCIES.length; i++) {
+
+        risks[CURRENCIES[i]] = await riskFX(CURRENCIES[i]);
+
+    }
+
+    return risks;
+
+}
+
 module.exports = {
 
     getMarketRates,
     getCurrencyRates,
     getReturnRates,
     getFXReturnRates,
+    getSharp,
     risk,
-    riskFX
+    riskFX,
+    getAllRisk,
+    getAllFXRisk
 
 }

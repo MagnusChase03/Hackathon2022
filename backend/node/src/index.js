@@ -9,6 +9,7 @@ app.use(cors());
 app.use(express.urlencoded({extended: true}));
 
 app.use('/', require('./routes/index.js'));
+app.use('/assets', require('./routes/assets.js'));
 app.use('/userProfile', require('./routes/userProfile.js'));
 app.use('/teapot', require('./routes/teapot.js'));
 
