@@ -77,6 +77,7 @@ export default function Dashboard(props) {
         <div className="stockInfo">
             <h1>Stocks</h1>
             <Button onClick={() => {getRisks()}} >Fetch Recommendations</Button>
+            <div className="dataDisplay">
                 {(ready == 'true') && riskData.Stocks.map((stock) => (
                     <div key={stock.company}>
                         <ul>
@@ -86,10 +87,12 @@ export default function Dashboard(props) {
                         <hr></hr>
                     </div>
                 ))}
+            </div>
         </div>
         <div className="cryptoInfo">
             <h1>Crypto</h1>
                     <Button onClick={() => { getRisks() }} >Fetch Recommendations</Button>
+                    <div className="dataDisplay">
                     {(ready == 'true') && riskData.Crypto.map((stock) => (
                         <div key={stock.company}>
                             <ul>
@@ -99,10 +102,13 @@ export default function Dashboard(props) {
                             <hr></hr>
                         </div>
                     ))}
+                    </div>
         </div>
         <div className="forexInfo">
             <h1>Forex</h1>
                     <Button onClick={() => { getRisks() }} >Fetch Recommendations</Button>
+                    <div className="dataDisplay">
+
                     {(ready == 'true') && riskData.FX.map((stock) => (
                         <div key={stock.company}>
                             <ul>
@@ -112,6 +118,7 @@ export default function Dashboard(props) {
                             <hr></hr>
                         </div>
                     ))}
+                    </div>
         </div>
     </div>
     </>

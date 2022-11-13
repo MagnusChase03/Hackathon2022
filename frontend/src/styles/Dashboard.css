@@ -18,58 +18,71 @@ ul {
     width: 60vw;
     display: grid;
     column-gap: 1em;;
-    row-gap: 3em;
+    row-gap: 0em;
+    margin: 0;
+    grid-auto-rows: auto;
+    grid-auto-columns: auto;
 }
-
+/* 
 .chartDiv {
   grid-column-start: 1;
-  grid-column-end: 3;
+  grid-column-end: 2;
+  grid-row: 1 / span 2;
 }
-
-
+*/
+/*
 .savingsInfo {
   grid-column-start: 4;
   grid-column-end: 6;
 }
-
+*/
 .stockInfo {
-  grid-row-start: 1;
-  grid-row-end: 2;
+  grid-row: 4;
+  /* grid-row-end: 1; 
   grid-column-start: 4;
   grid-column-end: 6;
+  grid
+*/
 }
-
+/*
 .bondInfo {
   grid-row-start: 2;
   grid-row-end: 3;
   grid-column-start: 4;
   grid-column-end: 6;
 }
-
-.cryptoInfo {
-  grid-row-start: 3;
-  grid-row-end: 4;
+*/
+/* .cryptoInfo { */
+  /* grid-row-start: 2; 
+  grid-row-end: 1;
   grid-column-start: 1;
   grid-column-end: 3;
 }
 
 .forexInfo {
-  grid-row-start: 3;
-  grid-row-end: 4;
+  grid-row: 1 / span 2;
+  /* grid-row-end: 3; 
   grid-column-start: 4;
   grid-column-end: 6;
-}
+} 
 ul{
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
 li{
-  margin: auto;
-}
+  /* margin-right: 1%;  */
+  /* padding-right: 1%;  */
+/* } */
 hr{
   border: 0;
   height: 1px;
   background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(200, 50, 200, 0.75), rgba(255, 0, 0, 0));
   width: 100%;
+}
+.dataDisplay{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height:  50%;
 }
