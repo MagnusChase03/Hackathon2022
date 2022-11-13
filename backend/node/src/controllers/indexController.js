@@ -1,4 +1,4 @@
-const getIndex = (req, res, next) => {
+const getIndex = async (req, res, next) => {
 
     res.json({"Message": "Hello World"});
 
