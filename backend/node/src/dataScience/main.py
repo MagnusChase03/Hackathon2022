@@ -46,10 +46,12 @@ def getReturnRates():
 
                 companyData = companyCollection.find_one()
                 for date, data in companyData.items():
-                    try:
-                        closeValues.append(float(data['4. close']))
-                    except:
-                        print("Error finding close")
+                    if (date != "_id"):
+                        try:
+                            closeValues.append(float(data['4. close']))
+                        except:
+                            print("Broken at %s %s" % (date, data))
+                            print("Error finding close")
 
                 returnValues = []
                 for i in range(0, len(closeValues) - 1):
@@ -57,21 +59,22 @@ def getReturnRates():
 
                 index = 0
                 for date, data in companyData.items():
-                    try:
-                        collectionName = "%sReturnValues" % company
+                    if (date != "_id"):
+                        try:
+                            collectionName = "%sReturnValues" % company
 
-                        companyReturnValueCollections = database[collectionName]
+                            companyReturnValueCollections = database[collectionName]
 
-                        returnValueObj = {date: returnValues[index]}
+                            returnValueObj = {date: returnValues[index]}
 
-                        companyReturnValueCollections.insert_one({date: returnValueObj})
+                            companyReturnValueCollections.insert_one({date: returnValueObj})
 
-                        index += 1
-                        if index >= len(returnValues):
-                            break
+                            index += 1
+                            if index >= len(returnValues):
+                                break
 
-                    except:
-                        print("Error finding close")
+                        except:
+                            print("Error adding object")
 
                 
 
@@ -182,8 +185,8 @@ def getMean():
 
 def main():
     # getMarketData()
-    # getReturnRates()
-    getMean()
+    getReturnRates()
+    #getMean()
     # v = getVar(m)
     # print(v)
 
