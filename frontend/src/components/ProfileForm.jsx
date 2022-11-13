@@ -128,22 +128,22 @@ export default function ProfileForm(props) {
         helperText="Investment Quantity"
         onChange={formik.handleChange}
       >
-        <MenuItem key="10" value="<5000>">
+        <MenuItem key="10" value="1">
           Under $5,000
         </MenuItem>
-        <MenuItem key="10" value="<10000">
+        <MenuItem key="10" value="2">
           $5,000 - $10,000
         </MenuItem>
-        <MenuItem key="10" value="<20000">
+        <MenuItem key="10" value="3">
           $10,001 - $20,000
         </MenuItem>
-        <MenuItem key="10" value="<50000">
+        <MenuItem key="10" value="4">
           $20,001 - $50,000
         </MenuItem>
-        <MenuItem key="10" value="<100000">
+        <MenuItem key="10" value="5">
           $50,001 - $100,000
         </MenuItem>
-          <MenuItem key="10" value=">100000">
+          <MenuItem key="10" value="6">
           More than $100,000
         </MenuItem>
       </TextField>

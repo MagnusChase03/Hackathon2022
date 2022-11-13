@@ -44,8 +44,6 @@ export default function Dashboard(props) {
         });
 
         data = await data.json();
-        // console.log(data);
-
         setRiskData(data);
         setReady('true');
     }
@@ -55,7 +53,6 @@ export default function Dashboard(props) {
         });
 
         data = await data.json();
-        // console.log(data.Stocks);
         setReturnData(data);
         setReady(true);
     }
@@ -65,16 +62,9 @@ export default function Dashboard(props) {
         });
 
         data = await data.json();
-        // console.log(data.Stocks);
         setRecData(data);
         setReady(true);
     }
-    
-    useEffect(() => {
-        // getRisks();
-        // getReturns();
-        // getRec();
-    }, []);
 
     return (
     <>
