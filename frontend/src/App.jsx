@@ -24,7 +24,7 @@ const theme = createTheme({
   palette: {
     mode: 'dark',
     primary: {
-      main: "#ffffff" // This is an orange looking color                
+      main: "#DA1E75" // This is an orange looking color                
     },     
     secondary: {         
       main: "#ffffff" //Another orange-ish color                

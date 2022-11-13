@@ -13,7 +13,6 @@ import Dashboard from '../components/Dashboard';
 export default function Home() {
     const [formSubmitted, setFormSubmitted] = useState(false);
     const [dataReady, setDataReady] = useState(false);
-    const [loggedIn, setLoggedIn] = useState(false);
     const [cookies, setCookies] = useCookies(['loggedIn', 'username', 'profileComplete']);
 
 
