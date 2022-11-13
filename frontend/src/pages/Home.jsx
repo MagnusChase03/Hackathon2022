@@ -4,7 +4,7 @@
 
 import { React, useState } from 'react';
 import Header from '../components/Header';
-import ProfileForm from '../components/ProfileForm';
+import  NewForm from '../components/NewForm';
 import '../styles/Home.css';
 
 export default function Home() {
@@ -47,7 +47,7 @@ export default function Home() {
     return(
         <div className='homeDiv'>
             <Header message="Investment Buddy"/>
-            {(!formSubmitted) && <ProfileForm handler={handleFormSubmission} />}
+            {(!formSubmitted) && <NewForm handler={handleFormSubmission} />}
 
             {formSubmitted && !dataReady && <h1>LOADING...</h1>}
             {formSubmitted && dataReady && <h1>DATA</h1>}

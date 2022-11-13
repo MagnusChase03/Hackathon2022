@@ -1,8 +1,9 @@
 
-import Reac from 'react';
+import React from 'react';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { Radio, FormControlLabel, MenuItem } from '@mui/material';
 import { RadioGroup, TextField } from '@mui/material';
+import { useFormik } from 'formik';
 import '../styles/ProfileForm.css'
 
 export default function ProfileForm(props) {
@@ -86,14 +87,14 @@ export default function ProfileForm(props) {
           
 
           <h3 className='question'>How much are you thinking about investing?</h3>
-            <Field
+            <TextField
               fullWidth
               select
-              component={TextField} 
+              // component={TextField} 
               id="disposableIncomeBracket"
               value={values.disposableIncomeBracket}
               helperText="Disposable Income Bracket"
-              // onChange={handleChange}
+              onChange={console.log(values.disposableIncomeBracket)}
 
             >
 
@@ -101,7 +102,7 @@ export default function ProfileForm(props) {
                 $10,000
               </MenuItem>
               {/* JOSH ADD MORE FIELDS HERE */}
-              </Field>
+              </TextField>
 
 
 
