@@ -100,10 +100,11 @@ const getCryptoRates = async () => {
 
 const getAllCryptoReturnRates = async ()  => {
 
-    returnRates = {};
+    returnRates = [];
     for (var i = 0; i < CRYPTO.length; i++) {
 
-        returnRates[CRYPTO[i]] = await getCryptoReturnRates(CRYPTO[i]);
+        var obj = {"crypto": CRYPTO[i], "returnRates": await getCryptoReturnRates(CRYPTO[i])};
+        returnRates.push(obj);
 
     }
 
@@ -139,10 +140,11 @@ const getReturnRates = async (company) => {
 
 const getAllReturnRates = async () => {
 
-    returnRates = {};
+    returnRates = [];
     for (var i = 0; i < COMPANIES.length; i++) {
 
-        returnRates[COMPANIES[i]] = await getReturnRates(COMPANIES[i]);
+        var obj = {"company": COMPANIES[i], "returnRates": await getReturnRates(COMPANIES[i])};
+        returnRates.push(obj);
 
     }
 
@@ -178,10 +180,11 @@ const getFXReturnRates = async (currency) => {
 
 const getAllFXReturnRates = async () => {
 
-    returnRates = {};
+    returnRates = [];
     for (var i = 0; i < CURRENCIES.length; i++) {
 
-        returnRates[CURRENCIES[i]] = await getReturnRates(CURRENCIES[i]);
+        var obj = {"FX": CURRENCIES[i], "returnRates": await getFXReturnRates(CURRENCIES[i])};
+        returnRates.push(obj);
 
     }
 
@@ -272,10 +275,11 @@ const riskCrypto = async (crypto) => {
 
 const getAllRisk = async () => {
 
-    risks = {};
+    risks = [];
     for (var i = 0; i < COMPANIES.length; i++) {
 
-        risks[COMPANIES[i]] = await risk(COMPANIES[i]);
+        var obj = {"company": COMPANIES[i], "risk": await risk(COMPANIES[i])};
+        risks.push(obj);
 
     }
 
@@ -285,10 +289,11 @@ const getAllRisk = async () => {
 
 const getAllFXRisk = async () => {
 
-    risks = {};
+    risks = [];
     for (var i = 0; i < CURRENCIES.length; i++) {
 
-        risks[CURRENCIES[i]] = await riskFX(CURRENCIES[i]);
+        var obj = {"company": CURRENCIES[i], "risk": await riskFX(CURRENCIES[i])};
+        risks.push(obj);
 
     }
 
@@ -298,10 +303,11 @@ const getAllFXRisk = async () => {
 
 const getAllCryptoRisk = async () => {
 
-    risks = {};
+    risks = [];
     for (var i = 0; i < CRYPTO.length; i++) {
 
-        risks[CRYPTO[i]] = await riskCrypto(CRYPTO[i]);
+        var obj = {"company": CRYPTO[i], "risk": await riskCrypto(CRYPTO[i])};
+        risks.push(obj);
 
     }
 
