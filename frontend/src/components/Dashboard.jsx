@@ -12,7 +12,6 @@ export default function Dashboard(props) {
     const [returnData, setReturnData] = useState(null);
     const [recData, setRecData] = useState(null);
     const [ready, setReady] = useState('false');
-    const [usData, setData] = useState(props.userData);
     const [cookies, setCookies] = useCookies(['loggedIn', 'username', 'profileComplete', 'userData', 'savings', 'publicStockPercent', 'bondsPercent', 'cryptoPercent', 'forexPercent']);
 
     const options = {
@@ -45,7 +44,7 @@ export default function Dashboard(props) {
         });
 
         data = await data.json();
-        console.log(data.Stocks);
+        // console.log(data);
 
         setRiskData(data);
         setReady('true');
@@ -97,9 +96,23 @@ export default function Dashboard(props) {
         </div>
         <div className="cryptoInfo">
             <h1>Crypto</h1>
+                    <Button onClick={() => { getRisks() }} >Fetch Recommendations</Button>
+                    {(ready == 'true') && riskData.Crypto.map((stock) => (
+                        <div key={stock.company}>
+                            <p className="companyTicker">Ticker: {stock.company}</p>
+                            <p className="companyRisk">Risk Level: {stock.risk}</p>
+                        </div>
+                    ))}
         </div>
         <div className="forexInfo">
             <h1>Forex</h1>
+                    <Button onClick={() => { getRisks() }} >Fetch Recommendations</Button>
+                    {(ready == 'true') && riskData.FX.map((stock) => (
+                        <div key={stock.company}>
+                            <p className="companyTicker">Ticker: {stock.company}</p>
+                            <p className="companyRisk">Risk Level: {stock.risk}</p>
+                        </div>
+                    ))}
         </div>
     </div>
     </>
