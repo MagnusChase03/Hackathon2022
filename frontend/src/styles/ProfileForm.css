@@ -6,48 +6,15 @@ form
   width: 100%;
 }
 
-label{
-    display: block;
-}
-
-.testRadio {
-    accent-color: white;
-    color: white;
-}
-
-
-
 .question,#submit{
     margin-top: 5%;
 }
 .question{
     box-sizing: border-box;
     width: auto;
-    padding-top: 2%;
-    padding-bottom: 2%;
+    /* padding-top: 2%;
+    padding-bottom: 2%; */
+    padding: 2%;
     border: 1px solid #E6E6E6;
     border-radius: 20px;
-    /* box-shadow: 0px 3px 18px 0px rgba(200, 50, 200, .5); */
-}
-.yesno{
-     display:flex;
-     align-items: center;
-     flex-wrap: wrap;
-     justify-content: space-evenly;
-    /* float: right; */
-
-}
-
-.textField{
-    /* border-radius: 5%;
-    margin-bottom: 2%; */
-    background-color: #303245;
-    border-radius: 12px;
-    border: 0;
-    box-sizing: border-box;
-    color: #eee;
-    font-size: 18px;
-    height: 100%;
-    outline: 0;
-    padding: 4px 20px 0;
 }
