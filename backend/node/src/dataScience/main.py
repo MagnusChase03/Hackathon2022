@@ -6,7 +6,7 @@ import requests
 import json
 import time
 
-COMPANIES = ['AXP', 'AMGN', 'AAPL', 'BA', 'CAT', 'CSCO', 'CVX', 'GS', 'HD', 'HON', 'IBM', 'ITNC', 'JNJ', 'KO', 'JPM', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PG', 'TRV', 'UNH', 'CRM', 'VZ', 'V', 'WBA', 'WMT', 'DIS', 'DOW']
+COMPANIES = ['AXP', 'AMGN', 'AAPL', 'BA', 'CAT', 'CSCO', 'CVX', 'GS', 'HD', 'HON', 'IBM', 'JNJ', 'KO', 'JPM', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PG', 'TRV', 'UNH', 'VZ', 'V', 'WBA', 'WMT', 'DIS', 'DOW']
 DB = None
 API_KEY = os.environ["API_KEY"]
 
@@ -48,6 +48,10 @@ def getMean(company):
     
     total = 0.0
     n = 0
+
+    for day in collection:
+        total += day["4. close"]
+        n += 1
     
     if n == 0:
         return total
@@ -57,6 +61,6 @@ def getMean(company):
 def main():
     connectDB()
     getMarketData()
-    # print(getMean("AAPL"))
+    print(getMean("AAPL"))
 
 main()
