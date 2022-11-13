@@ -43,24 +43,86 @@ def getMarketData():
 
                 time.sleep(50/1000)
 
-def getMean(company):
+def getReturnRates(company):
     collection = DB[company]
+
+    days = []
+    for day in collection.find():
+        days.append(day)
+    
+    returnRates = []
+    for i in range(0, len(days) - 1):
+        initial = float(days[i + 1]["4. close"])
+        final = float(days[i]["4. close"])
+
+        returnRates.append((final - initial) / initial)
+
+    return returnRates   
+
+# def getMean(company):
+#     collection = DB[company]
+    
+#     total = 0.0
+#     n = 0
+
+#     for day in collection.find():
+#         total += float(day["4. close"])
+#         n += 1
+    
+#     if n == 0:
+#         return total
+
+#     return total / n
+
+# def getStd(company, mean):
+#     collection = DB[company]
+    
+#     total = 0.0
+#     n = 0
+
+#     for day in collection.find():
+#         total += (float(day["4. close"]) - mean) ** 2
+#         n += 1
+    
+#     if n == 0:
+#         return total
+
+#     return (total / n) ** (1/2)
+
+def getMean(returnRates):
     
     total = 0.0
     n = 0
 
-    for day in collection.find():
-        total += float(day["4. close"])
+    for returnRate in returnRates:
+        total += returnRate
         n += 1
-    
-    if n == 0:
-        return total
 
     return total / n
+
+def getStd(returnRates, mean):
+    
+    total = 0.0
+    n = 0
+
+    for returnRate in returnRates:
+        total += (returnRate - mean) ** 2
+        n += 1
+
+    return (total / n) ** (1/2)
+
+def getSharp(company):
+    returnRates = getReturnRates(company)
+
+    m = getMean(returnRates)
+    s = getStd(returnRates, m)
+
+    return m / s
 
 def main():
     connectDB()
     getMarketData()
-    print(getMean("AAPL"))
+    print(getSharp("AAPL"))
+    print(getSharp("CSCO"))
 
 main()
