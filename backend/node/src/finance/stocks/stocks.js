@@ -1,27 +1,8 @@
 const mongodb = require('../../config/mongodb');
+const stats = require('../helpers/stats');
 
 const COMPANIES = ['GME', 'AXP', 'AMGN', 'AAPL', 'BA', 'CAT', 'CSCO', 'CVX', 'GS', 'HD', 'HON', 'IBM', 'JNJ', 'KO', 'JPM', 'MCD', 'MMM', 'MRK', 'MSFT', 'NKE', 'PG', 'TRV', 'UNH', 'VZ', 'V', 'WBA', 'WMT', 'DIS', 'DOW']
 const CURRENCIES = ['EUR', 'GBP', 'CAD']
-
-// def getMarketRates():
-
-//     returnRates = []
-//     for company in COMPANIES:
-//         returnRates.append(getReturnRates(company))
-
-//     meanReturnRates = []
-//     for i in range(0, len(returnRates[0])):
-
-//         total = 0.0
-//         num = 0
-//         for j in range(0, len(returnRates)):
-//             total += returnRates[j][i]
-//             num += 1
-
-//         total = total / num
-//         meanReturnRates.append(total)
-
-//     return meanReturnRates
 
 const getMarketRates = async () => {
 
@@ -31,6 +12,57 @@ const getMarketRates = async () => {
         returnRates.push(await getReturnRates(COMPANIES[i]));
 
     }
+
+    var meanReturnRates = []
+    for (var i = 0; i < returnRates[0].length; i++) {
+
+        var total = 0.0;
+        var num = 0;
+
+        for (var j = 0; j < returnRates.length; j++) {
+
+            total += returnRates[j][i];
+            num += 1;
+
+        }
+
+        total /= num;
+        meanReturnRates.push(total);
+
+    }
+
+    return meanReturnRates;
+
+}
+
+const getCurrencyRates = async () => {
+
+    var returnRates = []
+    for (var i = 0; i < CURRENCIES.length; i++) {
+
+        returnRates.push(await getFXReturnRates(CURRENCIES[i]));
+
+    }
+
+    var meanReturnRates = []
+    for (var i = 0; i < returnRates[0].length; i++) {
+
+        var total = 0.0;
+        var num = 0;
+
+        for (var j = 0; j < returnRates.length; j++) {
+
+            total += returnRates[j][i];
+            num += 1;
+
+        }
+
+        total /= num;
+        meanReturnRates.push(total);
+
+    }
+
+    return meanReturnRates;
 
 }
 
@@ -86,9 +118,41 @@ const getFXReturnRates = async (currency) => {
 
 }
 
+// def risk(company):
+//     returnRates = getReturnRates(company)
+//     returnRatesMean = getMean(returnRates)
+
+//     marketRates = getMarketRates()
+//     marketRatesMean = getMean(marketRates)
+
+//     topCov = cov(returnRates, returnRatesMean, marketRates, marketRatesMean)
+//     marketVariance = getVar(marketRates, marketRatesMean)
+
+//     return topCov / marketVariance
+
+const risk = async (company) => {
+
+    var returnRates = await getReturnRates(company);
+    var returnRatesMean = stats.mean(returnRates);
+    console.log(returnRates);
+    console.log(returnRatesMean);
+
+    var marketRates = await getMarketRates();
+    var marketRatesMean = stats.mean(marketRates);
+
+    var covar = stats.covariance(returnRates, returnRatesMean, marketRates, marketRatesMean);
+    var marketVar = stats.variance(marketRates, marketRatesMean);
+
+    return covar / marketVar;
+
+}
+
 module.exports = {
 
+    getMarketRates,
+    getCurrencyRates,
     getReturnRates,
-    getFXReturnRates
+    getFXReturnRates,
+    risk
 
 }

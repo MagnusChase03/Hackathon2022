@@ -15,8 +15,8 @@ const variance = (returnRates, mean) => {
     var total = 0.0;
     var n = 0;
 
-    for (let returnRate in returnRates){
-        total += (returnRate - mean) ** 2;
+    for (var i = 0; i < returnRates.length; i++){
+        total += (returnRates[i] - mean) ** 2;
         n += 1;
     }
 
@@ -40,8 +40,8 @@ const mean = (returnRates) => {
     var total = 0.0;
     var n = 0;
 
-    for (let returnRate in returnRates){
-        total += returnRate;
+    for (var i = 0; i < returnRates.length; i++){
+        total += returnRates[i];
         n += 1;
     }
 
