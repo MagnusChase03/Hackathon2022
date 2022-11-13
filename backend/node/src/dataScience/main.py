@@ -78,6 +78,32 @@ def getReturnRates():
         except:
             print("%s broke" % company)
 
+def getMean():
+    database = connectDB()
+    
+    for company in COMPANIES:
+        collectionName = "%sReturnValues" % company
+        companyCollection = database[collectionName]
+
+        total = 0.0
+        num = 0
+        for day in companyCollection.find():
+            for date, returnValue in day.items():
+                if (date != "_id"):
+                    try:
+                        total += returnValue
+                        num += 1
+                    except:
+                        print("Error with returnValue")
+
+        print(total)
+        print(num)
+        try:
+            total = total / num
+        except:
+            print("Division by zero")
+
+        companyCollection.insert_one({"mean": total})
 # def getCompanyData(company):
 #     database = connectDB()
 
@@ -156,8 +182,8 @@ def getReturnRates():
 
 def main():
     # getMarketData()
-    getReturnRates()
-    # m = getMean()
+    # getReturnRates()
+    getMean()
     # v = getVar(m)
     # print(v)
 
