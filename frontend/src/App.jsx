@@ -8,7 +8,7 @@ import Teapot from './pages/Teapot';
 import NoPage from './pages/NoPage';
 import './App.css';
 
-window.serverURL = "testURL";
+window.serverURL = "http://127.0.0.1:3000";
 
 function App() {
   return (

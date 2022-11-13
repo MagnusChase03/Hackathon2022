@@ -24,13 +24,13 @@ export default function Home() {
             'bondsPercent': values.bondsPercent,
             'cryptoPercent': values.cryptoPercent,
             'forexPercent': values.forexPercent,
-            'liquidityPrefrence': values.liquidityPrefrence,
+            'liquidityPrefrence': values.liquidityPreference,
             'investmentLength': values.investmentLength,
             'disposableIncomeBracket': values.disposableIncomeBracket,
             'financialGoal': values.financialGoal,
         }
 
-        data = await fetch(window.serverURL + '/endpoint', {
+        let data = await fetch(window.serverURL + '/userProfile', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/x-www-form-urlencoded'
@@ -39,8 +39,9 @@ export default function Home() {
         });
 
         data = await data.json();
-        console.log(data);
-        setDataReady(true);
+        if (data.Status == "Ok") {
+            setDataReady(true);
+        }
     }
 
     return(
