@@ -12,7 +12,7 @@ DB = None
 API_KEY = os.environ["API_KEY"]
 
 def makeRequest(company):
-    res = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=%s&apikey=%s' % (company, API_KEY))
+    res = requests.get('https://www.alphavantage.co/query?function=TIME_SERIES_DAILY&symbol=%s&apikey=%s' % (company, API_KEY))
     return res
 
 def makeFXRequest(currency):
