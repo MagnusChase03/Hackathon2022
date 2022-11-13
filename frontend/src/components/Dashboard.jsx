@@ -89,8 +89,11 @@ export default function Dashboard(props) {
             <Button onClick={() => {getRisks()}} >Fetch Recommendations</Button>
                 {(ready == 'true') && riskData.Stocks.map((stock) => (
                     <div key={stock.company}>
-                        <p className="companyTicker">Ticker: {stock.company}</p>
-                        <p className="companyRisk">Risk Level: {stock.risk}</p>
+                        <ul>
+                            <li><p className="companyTicker">Ticker: {stock.company}</p></li>
+                            <li><p className="companyRisk">Risk Level: {Math.round(stock.risk*100)/100}</p></li>
+                        </ul>
+                        <hr></hr>
                     </div>
                 ))}
         </div>
@@ -99,8 +102,11 @@ export default function Dashboard(props) {
                     <Button onClick={() => { getRisks() }} >Fetch Recommendations</Button>
                     {(ready == 'true') && riskData.Crypto.map((stock) => (
                         <div key={stock.company}>
-                            <p className="companyTicker">Ticker: {stock.company}</p>
-                            <p className="companyRisk">Risk Level: {stock.risk}</p>
+                            <ul>
+                                <li><p className="companyTicker">Ticker: {stock.company}</p></li>
+                                <li><p className="companyRisk">Risk Level: {Math.round(stock.risk*100)/100}</p></li>
+                            </ul>   
+                            <hr></hr>
                         </div>
                     ))}
         </div>
@@ -109,8 +115,11 @@ export default function Dashboard(props) {
                     <Button onClick={() => { getRisks() }} >Fetch Recommendations</Button>
                     {(ready == 'true') && riskData.FX.map((stock) => (
                         <div key={stock.company}>
-                            <p className="companyTicker">Ticker: {stock.company}</p>
-                            <p className="companyRisk">Risk Level: {stock.risk}</p>
+                            <ul>
+                                <li><p className="companyTicker">Ticker: {stock.company}</p></li>
+                                <li><p className="companyRisk">Risk Level: {Math.round(stock.risk*100)/100}</p></li>
+                            </ul>
+                            <hr></hr>
                         </div>
                     ))}
         </div>
